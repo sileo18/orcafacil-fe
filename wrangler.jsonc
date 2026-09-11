@@ -1,0 +1,35 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "main": ".open-next/worker.js",
+  // Precisa ser exatamente igual ao nome do Worker configurado no dashboard
+  // da Cloudflare (Workers & Pages > orcafacil-fe). Se este nome não bater,
+  // o deploy falha com "Service binding 'WORKER_SELF_REFERENCE' references
+  // Worker '<nome errado>' which was not found" — foi exatamente esse o
+  // erro corrigido aqui (o valor antigo, implícito, vinha do campo "name"
+  // do package.json, que era "frontend").
+  "name": "orcafacil-fe",
+  "compatibility_date": "2026-09-11",
+  "compatibility_flags": [
+    // Necessário para o Next.js funcionar via @opennextjs/cloudflare.
+    // https://developers.cloudflare.com/workers/configuration/compatibility-flags/#nodejs-compatibility-flag
+    "nodejs_compat",
+    // Permite fetch para URLs (ex.: chamadas ao backend em Server Components).
+    // https://developers.cloudflare.com/workers/configuration/compatibility-flags/#global-fetch-strictly-public
+    "global_fetch_strictly_public",
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS",
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      // Precisa ser igual ao "name" acima.
+      "service": "orcafacil-fe",
+    },
+  ],
+  "images": {
+    // Usado por next/image (ex.: app/(app)/business/page.tsx).
+    "binding": "IMAGES",
+  },
+}

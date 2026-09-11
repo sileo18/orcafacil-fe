@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
 
 const securityHeaders = [
   // Nunca "adivinhar" um Content-Type diferente do declarado.
@@ -24,3 +25,7 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+// Permite acessar bindings do Cloudflare (ex.: env vars via wrangler) durante
+// `next dev`, simulando o runtime do Workers em desenvolvimento local.
+initOpenNextCloudflareForDev();
