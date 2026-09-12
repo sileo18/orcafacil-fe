@@ -6,7 +6,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ```bash
 npm install
-npm run dev ""
+npm run dev 
 ```
 
 Abra [http://localhost:3000](http://localhost:3000) no navegador. Certifique-se de que o backend esteja rodando (veja o README raiz) e que `.env.local` aponte para ele (`NEXT_PUBLIC_API_URL`).
